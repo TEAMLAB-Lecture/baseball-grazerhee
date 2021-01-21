@@ -282,37 +282,42 @@ def is_no(one_more_input):
 def main():
     print("Play Baseball")
     user_input = 999
+    result=[0,0]
     random_number = str(get_not_duplicated_three_digit_number())
     print("Random Number is : ", random_number)
     # ===Modify codes below=============
     # 위의 코드를 포함하여 자유로운 수정이 가능함
 
+
+
     while True:
-        user_input = input('Please enter the three number\nEach three number must not be duplicated\n')
+        
+        user_input = input('Input guess number : ')
 
-        if is_validated_number(user_input) is not True:
-            print('Enter the right number again')
-            continue
+        if user_input == '0':
+            break
+        elif is_validated_number(user_input) is True: 
+            result = get_strikes_or_ball(user_input, random_number)
+            print(f'Result : STRIKES {result[0]}, BALLS {result[1]}')
 
-        result = get_strikes_or_ball(user_input, random_number)
-        print(f'Result : Strike {result[0]}, Ball {result[1]}')
+            if result[0]==3:
+                while True:
 
-        if result[0]==3:
-            while True:
+                    play_again = input("If you want to play again enter the 'y'or 'yes'\nIf you want to quit the game enter the 'n'or 'no'")
 
-                play_again = input("If you want to play again enter the 'y'or 'yes'\nIf you want to quit the game enter the 'n'or 'no'")
+                    if is_yes(play_again) is False and is_no(play_again) is False:
+                        print('WRONG INPUT')
+                    else:
+                        break
 
-                if is_yes(play_again) is False and is_no(play_again) is False:
-                    print('Enter the right word again')
-                else:
-                    break
-
-            if is_yes(play_again):
-                random_number = str(get_not_duplicated_three_digit_number())
-                print("Random Number is : ", random_number)
-                continue
-            elif is_no(play_again):
-                break
+                if is_yes(play_again):
+                    random_number = str(get_not_duplicated_three_digit_number())
+                    print("Random Number is : ", random_number)
+                    continue
+                elif is_no(play_again):
+                    break    
+        else:
+            print('WRONG INPUT')
 
     # ==================================
     print("Thank you for using this program")
